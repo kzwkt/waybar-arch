@@ -20,13 +20,14 @@ jobs:
         
       - name: Install dependencies
         run: |
-          pacman -Sy --noconfirm base-devel busybox 
-          useradd build
-          chown -R build .
-          su build -c 'makepkg -s'
-          PKGN=$(grep -Po "^pkgname=['\"]?\K[^'\"]+" PKGBUILD)
-          echo "PKG=${PKGN}" >> $GITHUB_ENV
-          FILE1=$(realpath $PKGN-99-1-any.pkg.tar.zst)
+          pacman -Sy --noconfirm base-devel  wget  fmt   gcc-libs   gtk3   jsoncpp   libevdev   libinput   libsigc++   spdlog  cmake meson wayland-protocols 
+          wget https://github.com/Alexays/Waybar/archive/refs/tags/$version.tar.gz
+          tar -xzf $version.tar.gz
+          cd Waybar-$version/
+          meson setup build -Dlibnl=disabled -Ddbusmenu-gtk=disabled -Dupower_glib=disabled -Dcava=disabled -Dmpris=disabled -Dmpd=disabled -Dsndio=disabled -Dniri=false 
+          ninja -C build/
+          strip build/waybar
+          FILE1=$(realpath Waybar-$version/build/waybar)
           echo "FILE1=${FILE1}" >> $GITHUB_ENV
           
 
