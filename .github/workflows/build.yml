@@ -15,6 +15,7 @@ jobs:
       - name: Install dependencies
         run: |
           pacman -Sy --noconfirm base-devel  wget  fmt   gcc-libs   gtk3   jsoncpp   libevdev   libinput   libsigc++   spdlog  cmake meson wayland-protocols 
+          version=0.12.0
           wget https://github.com/Alexays/Waybar/archive/refs/tags/$version.tar.gz
           tar -xzf $version.tar.gz
           cd Waybar-$version/
@@ -23,6 +24,7 @@ jobs:
           strip build/waybar
           FILE1=$(realpath Waybar-$version/build/waybar)
           echo "FILE1=${FILE1}" >> $GITHUB_ENV
+          echo "PKG=${version}" >> $GITHUB_ENV
           
 
       - name: Create GitHub Release and Upload ZIP
