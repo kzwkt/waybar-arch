@@ -22,7 +22,7 @@ jobs:
           meson setup build -Dlibnl=disabled -Ddbusmenu-gtk=disabled -Dupower_glib=disabled -Dcava=disabled -Dmpris=disabled -Dmpd=disabled -Dsndio=disabled -Dniri=false 
           ninja -C build/
           strip build/waybar
-          FILE1=$(realpath Waybar-$version/build/waybar)
+          FILE1=$(realpath build/waybar)
           echo "FILE1=${FILE1}" >> $GITHUB_ENV
           echo "PKG=${version}" >> $GITHUB_ENV
           
